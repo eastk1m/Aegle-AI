@@ -1,0 +1,36 @@
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score
+
+# Generate synthetic data (replace with your actual dataset)
+# Assume you have features (X) and labels (y)
+# X: Features (e.g., gene expressions, clinical data, mammogram features)
+# y: Binary labels (0 for healthy, 1 for cancer)
+
+# Split data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Initialize a Random Forest classifier
+clf = RandomForestClassifier(n_estimators=100, random_state=42)
+
+# Train the model
+clf.fit(X_train, y_train)
+
+# Make predictions on the test set
+y_pred = clf.predict(X_test)
+
+# Evaluate model performance
+accuracy = accuracy_score(y_test, y_pred)
+print(f"Accuracy: {accuracy:.2f}")
+
+# Now let's add a simple cancer detection threshold
+threshold = 0.5  # Adjust as needed
+y_pred_cancer = (y_pred > threshold).astype(int)
+
+# Evaluate cancer detection performance
+cancer_accuracy = accuracy_score(y_test, y_pred_cancer)
+print(f"Cancer Detection Accuracy: {cancer_accuracy:.2f}")
+
+# You can further fine-tune the threshold or explore more advanced detection methods.
